@@ -45,7 +45,7 @@ class MainAdapter (private  val context : Context) : RecyclerView.Adapter<MainAd
 
         fun  binView(item: ItemColor){
 
-           // itemView.itemImageColor.text = item.imageColor
+            //itemView.itemImageColor.text = item.imageColor
 
 
 
