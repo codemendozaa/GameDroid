@@ -2,8 +2,6 @@ package com.codemen.gamedroid
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -22,6 +20,8 @@ class MainActivity : AppCompatActivity() {
               txt_color.setBackgroundColor(color)
 
         }
+
+
     }
 
 }

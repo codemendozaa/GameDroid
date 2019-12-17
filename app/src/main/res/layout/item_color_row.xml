@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <View
-    android:id="@+id/circleImageView"
+    android:id="@+id/itemImageColor"
     android:background="@color/colorPrimaryDark"
     android:layout_width="50dp"
     android:layout_height="50dp"/>
