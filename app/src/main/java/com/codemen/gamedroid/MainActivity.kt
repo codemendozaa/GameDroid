@@ -1,56 +1,27 @@
 package com.codemen.gamedroid
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
+import android.view.View
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
-
-    enum class TimerState {
-        Stopped, Paused, Running
-    }
-
-
-    private lateinit var timer: CountDownTimer
-    private var timerLengthSecond = 0L
-    private var timerState = TimerState.Stopped
-    private var secondsRemaining: Long = 0L
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         fab_start.setOnClickListener { v ->
-            startTimer()
-            timerState = TimerState.Running
-            updateButtons()
+
+            val rnd = Random()
+            val color: Int = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+              txt_color.setBackgroundColor(color)
+
         }
     }
 
-
-    private fun startTimer() {
-
-        timer = object : CountDownTimer(1000, 1000) {
-            override fun onFinish() = onTimerFinished()
-
-            override fun onTick(millisUntilFinished: Long) {
-
-            }
-        }.start()
-    }
-
-
-    private fun updateButtons() {
-        when (timerState) {
-            TimerState.Running -> {
-                fab_start.isEnabled = false
-            }
-        }
-    }
-
-    private fun onTimerFinished() {
-        timerState = TimerState.Stopped
-    }
 }
