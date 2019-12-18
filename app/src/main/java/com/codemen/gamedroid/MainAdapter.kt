@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_color_row.view.*
 
 class MainAdapter (private  val context : Context) : RecyclerView.Adapter<MainAdapter.MainViewHolder>(){
@@ -43,7 +44,10 @@ class MainAdapter (private  val context : Context) : RecyclerView.Adapter<MainAd
 
     inner class MainViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
 
-        fun  binView(item: ItemColor){
+        fun  binView(item: ItemColor, listener: (ItemColor) -> Unit) = with(itemView){
+
+           // itemView.itemImageColor.text = item.imageColor
+            setOnClickListener { listener(item) }
 
             //itemView.itemImageColor.text = item.imageColor
 
