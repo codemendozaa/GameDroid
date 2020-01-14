@@ -33,17 +33,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startTime() {
-        object : CountDownTimer(10000, 1000) {
+        val timer = object: CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                txt_contador.setText("9" + millisUntilFinished / 1000)
+                txt_contador.setText("" + millisUntilFinished/1000)
             }
 
             override fun onFinish() {
-                txt_contador.setText("0")
+                txt_contador.setText("")
             }
-        }.start()
+        }
 
-
+        timer.start()
     }
 
 }

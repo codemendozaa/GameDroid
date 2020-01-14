@@ -38,7 +38,7 @@ class MainAdapter (private  val context : Context) : RecyclerView.Adapter<MainAd
     override fun onBindViewHolder(holder: MainAdapter.MainViewHolder, position: Int) {
 
         val item:ItemColor = dataList[position]
-        holder.binView(item)
+       // holder.binView(item)
 
     }
 
