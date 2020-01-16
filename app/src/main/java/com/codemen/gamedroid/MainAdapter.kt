@@ -1,58 +1,55 @@
 package com.codemen.gamedroid
 
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_color_row.view.*
 
-class MainAdapter (private  val context : Context) : RecyclerView.Adapter<MainAdapter.MainViewHolder>(){
+class MainAdapter (private  val context : Context, var arrayList: ArrayList<ItemColor>) :
+    RecyclerView.Adapter<MainAdapter.ItemHolder>() {
 
-    private  var dataList = mutableListOf<ItemColor>()
 
-    fun setListData(data:MutableList<ItemColor>){
 
-        dataList = data
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter.MainViewHolder {
+        val viewHolder  = LayoutInflater.from(context).inflate(R.layout.item_color_row,parent,false)
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_color_row,parent,false)
-
-        return MainViewHolder(view)
+        return ItemHolder(viewHolder)
 
     }
 
     override fun getItemCount(): Int {
 
-        return if (dataList.size > 0 ){
-            dataList.size
-        }else{
-            0
+        return arrayList.size
+
+    }
+
+    override fun onBindViewHolder(holder:ItemHolder, position: Int) {
+
+        val itemColor: ItemColor = arrayList.get(position)
+
+        //holder.colors.setImageResource(itemColor.icons!!)
+        holder.colors.text = itemColor.imageColor
+        holder.titles.text = itemColor.alpha
+
+        holder.colors.setOnClickListener {
+            Toast.makeText(context, itemColor.alpha, Toast.LENGTH_LONG).show()
         }
-
     }
 
-    override fun onBindViewHolder(holder: MainAdapter.MainViewHolder, position: Int) {
+        class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val item:ItemColor = dataList[position]
-       // holder.binView(item)
-
-    }
-
-    inner class MainViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-
-        fun  binView(item: ItemColor, listener: (ItemColor) -> Unit) = with(itemView){
-
-           // itemView.itemImageColor.text = item.imageColor
-            setOnClickListener { listener(item) }
-
-            //itemView.itemImageColor.text = item.imageColor
+            var colors = itemView.findViewById<TextView>(R.id.itemImageColor)
+            var titles = itemView.findViewById<TextView>(R.id.title_text_view)
 
 
 
         }
-    }
 }

@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/mv_cardView"
     android:padding="8dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
 
-    <GridLayout
-    android:id="@+id/itemImageColor"
-    android:background="@color/colorPrimaryDark"
-        android:columnWidth="120dp"
-        android:numColumns="auto_fit"
-        android:layout_width="100dp"
-    android:layout_height="100dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"/>
 
-</LinearLayout>
+        <TextView
+
+            android:id="@+id/itemImageColor"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:columnWidth="120dp"
+            android:layout_weight="1"
+            android:numColumns="auto_fit" />
+
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="Title Text"
+        android:textStyle="bold" />
+
+</androidx.cardview.widget.CardView>
