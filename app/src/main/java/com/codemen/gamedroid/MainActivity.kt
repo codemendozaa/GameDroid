@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.res.use
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,21 +16,21 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var countDownTimer:CountDownTimer
-    //private lateinit var adapter: MainAdapter
+    private lateinit var countDownTimer: CountDownTimer
+
 
     private var recyclerView: RecyclerView? = null
     private var itemColor: ArrayList<ItemColor>? = null
     private var gridLayoutManager: GridLayoutManager? = null
     private var mainAdapter: MainAdapter? = null
 
-    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         recyclerView = findViewById(R.id.recyclerView)
-        gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
+        gridLayoutManager =
+            GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
 
@@ -37,11 +38,6 @@ class MainActivity : AppCompatActivity() {
         itemColor = setAlphas()
         mainAdapter = MainAdapter(applicationContext, itemColor!!)
         recyclerView?.adapter = mainAdapter
-
-
-
-
-
 
 
         /* adapter = MainAdapter(this)
@@ -59,9 +55,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startTime() {
-        val timer = object: CountDownTimer(5000, 1000) {
+        val timer = object : CountDownTimer(6000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                txt_contador.setText("" + millisUntilFinished/1000)
+                txt_contador.setText("" + millisUntilFinished / 1000)
 
             }
 
@@ -77,6 +73,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setAlphas(): ArrayList<ItemColor> {
 
+        val colors = resources.obtainTypedArray(R.array.androidcolors).use { ta ->
+            IntArray(ta.length()) { ta.getColor(it, 0) }
+        }
+
         var arrayList: ArrayList<ItemColor> = ArrayList()
 
 
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
         arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
         arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "",R.color.colorAccent))
+        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
 
 
 
@@ -100,10 +100,11 @@ class MainActivity : AppCompatActivity() {
         return arrayList
     }
 
-    fun changeColor(){
+    fun changeColor() {
         val rnd = Random()
         val color: Int = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
         txt_color.setBackgroundColor(color)
         itemImageColor.setBackgroundColor(color)
     }
+
 }
