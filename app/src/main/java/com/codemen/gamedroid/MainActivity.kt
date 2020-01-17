@@ -1,11 +1,9 @@
 package com.codemen.gamedroid
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.content.res.use
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private var recyclerView: RecyclerView? = null
-    private var itemColor: ArrayList<ItemColor>? = null
+    lateinit var  itemColor: ArrayList<ItemColor>
     private var gridLayoutManager: GridLayoutManager? = null
     private var mainAdapter: MainAdapter? = null
 
@@ -30,19 +28,18 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
         gridLayoutManager =
-            GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
+            GridLayoutManager(this, 3)
         recyclerView?.layoutManager = gridLayoutManager
-        recyclerView?.setHasFixedSize(true)
+
 
         itemColor = ArrayList()
         itemColor = setAlphas()
-        mainAdapter = MainAdapter(applicationContext, itemColor!!)
+        mainAdapter = MainAdapter(applicationContext, itemColor)
         recyclerView?.adapter = mainAdapter
 
+        var colorAl = resources.getStringArray(R.array.androidcolors)
 
-        /* adapter = MainAdapter(this)
-         recyclerView.layoutManager = GridLayoutManager(this,3)
-         recyclerView.adapter = adapter */
+
 
         fab_start.setOnClickListener { v ->
             startTime()
@@ -73,25 +70,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun setAlphas(): ArrayList<ItemColor> {
 
-        val colors = resources.obtainTypedArray(R.array.androidcolors).use { ta ->
-            IntArray(ta.length()) { ta.getColor(it, 0) }
-        }
+       //
+       // var rnd = Random()
 
         var arrayList: ArrayList<ItemColor> = ArrayList()
 
 
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorPrimary))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
-        arrayList.add(ItemColor(R.drawable.letter_a, "", R.color.colorAccent))
+        arrayList.add(ItemColor(color =  R.color.colorAccent))
+        arrayList.add(ItemColor(color =   R.color.colorPrimary))
+        arrayList.add(ItemColor(color =   R.color.colorAccent))
+
+        arrayList.add(ItemColor(color =  R.color.colorAccent))
+        arrayList.add(ItemColor(color =   R.color.colorPrimary))
+        arrayList.add(ItemColor(color =   R.color.colorAccent))
+
+        arrayList.add(ItemColor(color =  R.color.colorAccent))
+        arrayList.add(ItemColor(color =   Color.parseColor("#ffffff")))
+        arrayList.add(ItemColor(color =   R.color.colorAccent))
+
+        arrayList.add(ItemColor(color =  R.color.colorAccent))
+        arrayList.add(ItemColor(color =   R.color.colorPrimary))
+        arrayList.add(ItemColor(color =   R.color.colorAccent))
 
 
 
@@ -101,10 +100,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeColor() {
-        val rnd = Random()
-        val color: Int = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+        var rnd = Random()
+        var color: Int = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
         txt_color.setBackgroundColor(color)
         itemImageColor.setBackgroundColor(color)
-    }
 
+        if (itemImageColor == txt_color) {
+
+
+        }
+    }
 }
