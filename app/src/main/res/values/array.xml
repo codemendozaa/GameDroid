@@ -12,5 +12,8 @@
         <item>@color/darkgreen</item>
         <item>@color/darkorange</item>
         <item>@color/darkred</item>
+        <item>@color/chartreuse</item>
+
+
     </string-array>
 </resources>

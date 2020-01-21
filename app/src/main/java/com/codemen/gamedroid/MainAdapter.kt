@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.graphics.toColor
+import androidx.core.graphics.toColorLong
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lzyzsd.randomcolor.RandomColor
 import kotlinx.android.synthetic.main.item_color_row.*
@@ -37,12 +39,17 @@ class MainAdapter (private  val context : Context, var arrayList: ArrayList<Item
 
     override fun onBindViewHolder(holder:ItemHolder, position: Int) {
 
+        var rnd = Random()
+        var color: Int = Color.argb(255, rnd.nextInt(R.array.androidcolors), rnd.nextInt(R.array.androidcolors), rnd.nextInt(R.array.androidcolors))
 
-        holder.colors.setBackgroundColor(arrayList[position].color)
+
+       holder.colors.setBackgroundColor(color)
 
         holder.colors.setOnClickListener {
             Toast.makeText(context, "Seleccionado", Toast.LENGTH_LONG).show()
         }
+
+
 
 
        // holder.colors.setBackgroundColor(randomColor.randomColor())

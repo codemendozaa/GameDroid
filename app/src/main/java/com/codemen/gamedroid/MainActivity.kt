@@ -56,11 +56,13 @@ class MainActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 txt_contador.setText("" + millisUntilFinished / 1000)
 
+
             }
 
             override fun onFinish() {
                 fab_start.isClickable = true
                 txt_contador.setText("")
+
 
             }
         }
@@ -71,29 +73,28 @@ class MainActivity : AppCompatActivity() {
     private fun setAlphas(): ArrayList<ItemColor> {
 
        //
-       // var rnd = Random()
+        var rnd = Random()
 
         var arrayList: ArrayList<ItemColor> = ArrayList()
 
 
-        arrayList.add(ItemColor(color =  R.color.colorAccent))
-        arrayList.add(ItemColor(color =   R.color.colorPrimary))
-        arrayList.add(ItemColor(color =   R.color.colorAccent))
-
-        arrayList.add(ItemColor(color =  R.color.colorAccent))
-        arrayList.add(ItemColor(color =   R.color.colorPrimary))
-        arrayList.add(ItemColor(color =   R.color.colorAccent))
-
-        arrayList.add(ItemColor(color =  R.color.colorAccent))
-        arrayList.add(ItemColor(color =   Color.parseColor("#ffffff")))
-        arrayList.add(ItemColor(color =   R.color.colorAccent))
-
-        arrayList.add(ItemColor(color =  R.color.colorAccent))
-        arrayList.add(ItemColor(color =   R.color.colorPrimary))
-        arrayList.add(ItemColor(color =   R.color.colorAccent))
 
 
+        arrayList.add(ItemColor(color =   Color.MAGENTA))
+        arrayList.add(ItemColor(color =   Color.BLACK))
+        arrayList.add(ItemColor(color =   Color.YELLOW))
 
+        arrayList.add(ItemColor(color =   Color.CYAN))
+        arrayList.add(ItemColor(color =   Color.GREEN))
+        arrayList.add(ItemColor(color =   Color.DKGRAY))
+
+        arrayList.add(ItemColor(color =   Color.LTGRAY))
+        arrayList.add(ItemColor(color =   Color.WHITE))
+        arrayList.add(ItemColor(color =   Color.RED))
+
+        arrayList.add(ItemColor(color =  Color.BLUE))
+        arrayList.add(ItemColor(color =   Color.GRAY))
+        arrayList.add(ItemColor(color =   Color.TRANSPARENT))
 
 
         return arrayList
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         itemImageColor.setBackgroundColor(color)
 
         if (itemImageColor == txt_color) {
-
+            println("correcto")
 
         }
     }
