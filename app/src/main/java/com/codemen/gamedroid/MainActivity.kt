@@ -21,12 +21,16 @@ class MainActivity : AppCompatActivity() {
     lateinit var  itemColor: ArrayList<ItemColor>
     private var gridLayoutManager: GridLayoutManager? = null
     private var mainAdapter: MainAdapter? = null
+    private var colorUsed : ArrayList<Int> = ArrayList()
+    private var mainColor : Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         recyclerView = findViewById(R.id.recyclerView)
+
         gridLayoutManager =
             GridLayoutManager(this, 3)
         recyclerView?.layoutManager = gridLayoutManager
@@ -36,9 +40,6 @@ class MainActivity : AppCompatActivity() {
         itemColor = setAlphas()
         mainAdapter = MainAdapter(applicationContext, itemColor)
         recyclerView?.adapter = mainAdapter
-
-        var colorAl = resources.getStringArray(R.array.androidcolors)
-
 
 
         fab_start.setOnClickListener { v ->
@@ -62,8 +63,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFinish() {
                 fab_start.isClickable = true
                 txt_contador.setText("")
-
-
+                changeColor()
             }
         }
 
@@ -72,13 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setAlphas(): ArrayList<ItemColor> {
 
-       //
-        var rnd = Random()
-
-        var arrayList: ArrayList<ItemColor> = ArrayList()
-
-
-
+        val arrayList: ArrayList<ItemColor> = ArrayList()
 
         arrayList.add(ItemColor(color =   Color.MAGENTA))
         arrayList.add(ItemColor(color =   Color.BLACK))
@@ -86,29 +80,34 @@ class MainActivity : AppCompatActivity() {
 
         arrayList.add(ItemColor(color =   Color.CYAN))
         arrayList.add(ItemColor(color =   Color.GREEN))
-        arrayList.add(ItemColor(color =   Color.DKGRAY))
+        arrayList.add(ItemColor(color =   Color.GRAY))
 
-        arrayList.add(ItemColor(color =   Color.LTGRAY))
-        arrayList.add(ItemColor(color =   Color.WHITE))
+        arrayList.add(ItemColor(color =   Color.BLUE))
+        arrayList.add(ItemColor(color =   Color.DKGRAY))
         arrayList.add(ItemColor(color =   Color.RED))
 
-        arrayList.add(ItemColor(color =  Color.BLUE))
-        arrayList.add(ItemColor(color =   Color.GRAY))
-        arrayList.add(ItemColor(color =   Color.TRANSPARENT))
+        arrayList.add(ItemColor(color =  Color.LTGRAY))
+        arrayList.add(ItemColor(color =   Color.parseColor("#00574B")))
+        arrayList.add(ItemColor(color =   Color.parseColor("#FFFFBB33")))
 
 
         return arrayList
     }
 
     fun changeColor() {
-        var rnd = Random()
-        var color: Int = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+        //var rnd = Random()
+
+        //var color: Int = Color.argb(255, rnd.nextInt(255), rnd.nextInt(256), rnd.nextInt(256))
+        mainColor = Random().nextInt(12 )
+        var color: Int = itemColor[mainColor].color
         txt_color.setBackgroundColor(color)
-        itemImageColor.setBackgroundColor(color)
 
-        if (itemImageColor == txt_color) {
-            println("correcto")
+        //itemImageColor.setBackgroundColor(color)
+        colorUsed = ArrayList<Int>()
 
-        }
+        mainAdapter?.setConfig(colorUsed, mainColor)
+
+
     }
+
 }

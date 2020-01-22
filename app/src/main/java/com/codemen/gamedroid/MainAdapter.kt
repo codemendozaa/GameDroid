@@ -16,16 +16,17 @@ import kotlinx.android.synthetic.main.item_color_row.*
 import java.util.*
 
 
-class MainAdapter (private  val context : Context, var arrayList: ArrayList<ItemColor>) : RecyclerView.Adapter<MainAdapter.ItemHolder>() {
+class MainAdapter(private val context: Context, var arrayList: ArrayList<ItemColor>) :
+    RecyclerView.Adapter<MainAdapter.ItemHolder>() {
 
-    init {
-        println("dsfsdfsd")
-    }
 
+    private var colorUsed: ArrayList<Int> = ArrayList()
+    private var mainColor: Int? = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
 
-        val viewHolder  = LayoutInflater.from(context).inflate(R.layout.item_color_row,parent,false)
+        val viewHolder =
+            LayoutInflater.from(context).inflate(R.layout.item_color_row, parent, false)
 
         return ItemHolder(viewHolder)
 
@@ -37,32 +38,44 @@ class MainAdapter (private  val context : Context, var arrayList: ArrayList<Item
 
     }
 
-    override fun onBindViewHolder(holder:ItemHolder, position: Int) {
-
-        var rnd = Random()
-        var color: Int = Color.argb(255, rnd.nextInt(R.array.androidcolors), rnd.nextInt(R.array.androidcolors), rnd.nextInt(R.array.androidcolors))
-
-
-       holder.colors.setBackgroundColor(color)
-
-        holder.colors.setOnClickListener {
-            Toast.makeText(context, "Seleccionado", Toast.LENGTH_LONG).show()
+    fun selectColor(): Int {
+        var position: Int = Random().nextInt(12)
+        for (color in this.colorUsed) {
+            if (color === position) {
+                return selectColor()
+            }
         }
-
-
-
-
-       // holder.colors.setBackgroundColor(randomColor.randomColor())
+        return position
     }
 
-        class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-            var colors = itemView.findViewById<TextView>(R.id.itemImageColor)
-
-
-
-
-
+    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+        var positionRm: Int = selectColor()
+        var color: Int = arrayList[positionRm].color
+        colorUsed.add(positionRm)
+        if (colorUsed.size === 10) {
+            holder.colors.setBackgroundColor(color)
         }
+        holder.colors.setBackgroundColor(color)
+        holder.colors.setOnClickListener {
+
+            if (mainColor === positionRm) {
+                Toast.makeText(context, "Buen trabajo!!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(context, " ohh mala elección..", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    }
+
+    fun setConfig(colorUsed: ArrayList<Int>, mainColor: Int) {
+        this.colorUsed = colorUsed
+        this.mainColor = mainColor
+    }
+
+    class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        var colors = itemView.findViewById<TextView>(R.id.itemImageColor)
+
+    }
 }
 
