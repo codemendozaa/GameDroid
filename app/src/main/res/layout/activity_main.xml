@@ -52,7 +52,7 @@
                 android:id="@+id/txt_error"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:text="Error:2"
+                android:text="Error: "
                 android:textAlignment="center"
                 android:textSize="10dp" />
 
@@ -60,7 +60,7 @@
                 android:id="@+id/txt_acertada"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:text="Acertada:5"
+                android:text="Acertada:"
                 android:textAlignment="center"
                 android:textSize="10dp" />
         </LinearLayout>

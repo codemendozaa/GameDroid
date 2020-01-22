@@ -3,14 +3,13 @@ package com.codemen.gamedroid
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.use
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_color_row.*
 import java.util.*
+import kotlin.math.log
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private var mainAdapter: MainAdapter? = null
     private var colorUsed : ArrayList<Int> = ArrayList()
     private var mainColor : Int = 0
+     var Error : Int = 0
+     var Acertado : Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         itemColor = ArrayList()
         itemColor = setAlphas()
-        mainAdapter = MainAdapter(applicationContext, itemColor)
+        mainAdapter = MainAdapter(applicationContext, itemColor, this)
         recyclerView?.adapter = mainAdapter
 
 
@@ -57,13 +58,12 @@ class MainActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 txt_contador.setText("" + millisUntilFinished / 1000)
 
-
             }
 
             override fun onFinish() {
                 fab_start.isClickable = true
                 txt_contador.setText("")
-                changeColor()
+
             }
         }
 
@@ -94,18 +94,18 @@ class MainActivity : AppCompatActivity() {
         return arrayList
     }
 
-    fun changeColor() {
-        //var rnd = Random()
+     fun changeColor() {
 
-        //var color: Int = Color.argb(255, rnd.nextInt(255), rnd.nextInt(256), rnd.nextInt(256))
         mainColor = Random().nextInt(12 )
         var color: Int = itemColor[mainColor].color
         txt_color.setBackgroundColor(color)
 
-        //itemImageColor.setBackgroundColor(color)
-        colorUsed = ArrayList<Int>()
+        colorUsed = ArrayList()
 
         mainAdapter?.setConfig(colorUsed, mainColor)
+
+         //TODO..Refrescar el componento recyclerView
+         recyclerView?.refreshDrawableState()
 
 
     }

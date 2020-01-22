@@ -2,21 +2,17 @@ package com.codemen.gamedroid
 
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.graphics.toColor
-import androidx.core.graphics.toColorLong
 import androidx.recyclerview.widget.RecyclerView
-import com.github.lzyzsd.randomcolor.RandomColor
-import kotlinx.android.synthetic.main.item_color_row.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
-class MainAdapter(private val context: Context, var arrayList: ArrayList<ItemColor>) :
+class MainAdapter( private val context: Context, var arrayList: ArrayList<ItemColor>, var mainActivity: MainActivity) :
     RecyclerView.Adapter<MainAdapter.ItemHolder>() {
 
 
@@ -48,22 +44,32 @@ class MainAdapter(private val context: Context, var arrayList: ArrayList<ItemCol
         return position
     }
 
+
+
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        var positionRm: Int = selectColor()
-        var color: Int = arrayList[positionRm].color
-        colorUsed.add(positionRm)
-        if (colorUsed.size === 10) {
-            holder.colors.setBackgroundColor(color)
-        }
+
+            var positionRm: Int = selectColor()
+            var color: Int = arrayList[positionRm].color
+            colorUsed.add(positionRm)
+            if (colorUsed.size === 10) {
+                holder.colors.setBackgroundColor(color)
+            }
+
         holder.colors.setBackgroundColor(color)
         holder.colors.setOnClickListener {
 
             if (mainColor === positionRm) {
                 Toast.makeText(context, "Buen trabajo!!", Toast.LENGTH_LONG).show()
 
+             //   mainActivity.txt_acertada.setText(mainActivity.Acertado ++)
             } else {
                 Toast.makeText(context, " ohh intenta otro vez..", Toast.LENGTH_LONG).show()
+                this.mainActivity.Error ++
+               // this.mainActivity.txt_error.setText(mainActivity.Error)
             }
+
+            mainActivity.changeColor()
+
         }
 
     }
@@ -72,6 +78,7 @@ class MainAdapter(private val context: Context, var arrayList: ArrayList<ItemCol
         this.colorUsed = colorUsed
         this.mainColor = mainColor
     }
+
 
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
