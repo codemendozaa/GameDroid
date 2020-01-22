@@ -60,8 +60,9 @@ class MainAdapter(private val context: Context, var arrayList: ArrayList<ItemCol
 
             if (mainColor === positionRm) {
                 Toast.makeText(context, "Buen trabajo!!", Toast.LENGTH_LONG).show()
+
             } else {
-                Toast.makeText(context, " ohh mala elección..", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, " ohh intenta otro vez..", Toast.LENGTH_LONG).show()
             }
         }
 
