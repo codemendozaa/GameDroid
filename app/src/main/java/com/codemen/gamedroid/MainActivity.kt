@@ -1,13 +1,17 @@
 package com.codemen.gamedroid
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Vibrator
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -22,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private var mainAdapter: MainAdapter? = null
     private var colorUsed : ArrayList<Int> = ArrayList()
     private var mainColor : Int = 0
+    var success: Int = 0
+    var errores: Int = 0
 
 
 
@@ -30,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         recyclerView = findViewById(R.id.recyclerView)
 
@@ -45,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         fab_start.setOnClickListener { v ->
             startTime()
             changeColor()
@@ -57,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startTime() {
-        val timer = object : CountDownTimer(6000, 1000) {
+        val timer = object : CountDownTimer(11000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 txt_contador.setText("" + millisUntilFinished / 1000)
 
@@ -66,8 +72,13 @@ class MainActivity : AppCompatActivity() {
             override fun onFinish() {
                 fab_start.isClickable = true
                 txt_contador.setText("")
+                alertDialogo()
+                clearFindViewByIdCache()
+
+
 
             }
+
         }
 
         timer.start()
@@ -111,6 +122,43 @@ class MainActivity : AppCompatActivity() {
          mainAdapter?.notifyDataSetChanged()
 
 
+
+    }
+
+    fun alertDialogo(){
+
+        val builder = AlertDialog.Builder(this@MainActivity)
+
+        // Set the alert dialog title
+        builder.setTitle("Tu partida a Terminado")
+
+        // Display a message on alert dialog
+        builder.setMessage("Este fue Tu resultado.."
+                +"Acertadas:" +success++
+                + "Errores:"  +errores++
+
+                + "¿Deseas seguir jugando?")
+
+
+        // Set a positive button and its click listener on alert dialog
+        builder.setPositiveButton("YES"){dialog, which ->
+            // Do something when user press the positive button
+            Toast.makeText(applicationContext,"Ok,Buena suerte.",Toast.LENGTH_SHORT).show()
+
+        }
+
+        // Display a negative button on alert dialog
+        builder.setNegativeButton("No"){dialog,which ->
+            Toast.makeText(applicationContext,"Hasta pronto.",Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
 
     }
 

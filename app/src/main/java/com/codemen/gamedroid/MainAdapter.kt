@@ -48,6 +48,8 @@ class MainAdapter( private val context: Context, var arrayList: ArrayList<ItemCo
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
 
+
+
             var positionRm: Int = selectColor()
             var color: Int = arrayList[positionRm].color
             colorUsed.add(positionRm)
@@ -59,14 +61,17 @@ class MainAdapter( private val context: Context, var arrayList: ArrayList<ItemCo
         holder.colors.setOnClickListener {
 
             if (mainColor === positionRm) {
-                Toast.makeText(context, "Buen trabajo!!", Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(context, "Buen trabajo!!"+ mainActivity.success, Toast.LENGTH_SHORT).show()
+                mainActivity.success++
+                mainActivity.txt_acertada.setText("Correctas:"+mainActivity.success)
 
             } else {
 
                 Toast.makeText(context, " ohh intenta otro vez..", Toast.LENGTH_SHORT).show()
-                //this.mainActivity.errores.inc()
-               // this.mainActivity.txt_error.setText(mainActivity.Error)
+                mainActivity.errores++
+                mainActivity.txt_error.setText("Error:"+mainActivity.errores)
+
+
 
             }
 
