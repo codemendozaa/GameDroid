@@ -12,7 +12,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
-class MainAdapter( private val context: Context, var arrayList: ArrayList<ItemColor>, var mainActivity: MainActivity) :
+class MainAdapter(
+    private val context: Context,
+    var arrayList: ArrayList<ItemColor>,
+    var mainActivity: MainActivity
+) :
     RecyclerView.Adapter<MainAdapter.ItemHolder>() {
 
 
@@ -45,38 +49,44 @@ class MainAdapter( private val context: Context, var arrayList: ArrayList<ItemCo
     }
 
 
-
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
 
 
-
-            var positionRm: Int = selectColor()
-            var color: Int = arrayList[positionRm].color
-            colorUsed.add(positionRm)
-            if (colorUsed.size === 10) {
-                holder.colors.setBackgroundColor(color)
-            }
+        var positionRm: Int = selectColor()
+        var color: Int = arrayList[positionRm].color
+        colorUsed.add(positionRm)
+        if (colorUsed.size === 10) {
+            holder.colors.setBackgroundColor(color)
+        }
 
         holder.colors.setBackgroundColor(color)
+
+
         holder.colors.setOnClickListener {
+            if (mainActivity.validateClick) {
 
-            if (mainColor === positionRm) {
-                Toast.makeText(context, "Buen trabajo!!"+ mainActivity.success, Toast.LENGTH_SHORT).show()
-                mainActivity.success++
-                mainActivity.txt_acertada.setText("Correctas:"+mainActivity.success)
+                //  Toast.makeText(context, " Debes dar Play ", Toast.LENGTH_SHORT).show()
 
-            } else {
+                if (mainColor == positionRm) {
 
-                Toast.makeText(context, " ohh intenta otro vez..", Toast.LENGTH_SHORT).show()
-                mainActivity.errores++
-                mainActivity.txt_error.setText("Error:"+mainActivity.errores)
+                    Toast.makeText(
+                        context,
+                        "Buen trabajo!!" + mainActivity.success,
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    mainActivity.success++
+                    mainActivity.txt_acertada.setText("Correctas:" + mainActivity.success)
 
+                } else {
 
+                    Toast.makeText(context, " ohh intenta otro vez..", Toast.LENGTH_SHORT).show()
+                    mainActivity.errores++
+                    mainActivity.txt_error.setText("Error:" + mainActivity.errores)
+                }
 
+                mainActivity.changeColor()
             }
-
-            mainActivity.changeColor()
-
         }
 
     }

@@ -21,16 +21,14 @@ class MainActivity : AppCompatActivity() {
 
 
     private var recyclerView: RecyclerView? = null
-    lateinit var  itemColor: ArrayList<ItemColor>
+    lateinit var itemColor: ArrayList<ItemColor>
     private var gridLayoutManager: GridLayoutManager? = null
     private var mainAdapter: MainAdapter? = null
-    private var colorUsed : ArrayList<Int> = ArrayList()
-    private var mainColor : Int = 0
+    private var colorUsed: ArrayList<Int> = ArrayList()
+    private var mainColor: Int = 0
     var success: Int = 0
     var errores: Int = 0
-
-
-
+    var validateClick = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +53,10 @@ class MainActivity : AppCompatActivity() {
         fab_start.setOnClickListener { v ->
             startTime()
             changeColor()
+            reset()
             fab_start.isClickable = false
+            validateClick = true
+
 
         }
 
@@ -67,14 +68,15 @@ class MainActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 txt_contador.setText("" + millisUntilFinished / 1000)
 
+
             }
 
             override fun onFinish() {
                 fab_start.isClickable = true
                 txt_contador.setText("")
+                reset()
                 alertDialogo()
-                clearFindViewByIdCache()
-
+                validateClick = false
 
 
             }
@@ -88,29 +90,29 @@ class MainActivity : AppCompatActivity() {
 
         val arrayList: ArrayList<ItemColor> = ArrayList()
 
-        arrayList.add(ItemColor(color =   Color.MAGENTA))
-        arrayList.add(ItemColor(color =   Color.BLACK))
-        arrayList.add(ItemColor(color =   Color.YELLOW))
+        arrayList.add(ItemColor(color = Color.MAGENTA))
+        arrayList.add(ItemColor(color = Color.BLACK))
+        arrayList.add(ItemColor(color = Color.YELLOW))
 
-        arrayList.add(ItemColor(color =   Color.CYAN))
-        arrayList.add(ItemColor(color =   Color.GREEN))
-        arrayList.add(ItemColor(color =   Color.GRAY))
+        arrayList.add(ItemColor(color = Color.CYAN))
+        arrayList.add(ItemColor(color = Color.GREEN))
+        arrayList.add(ItemColor(color = Color.GRAY))
 
-        arrayList.add(ItemColor(color =   Color.BLUE))
-        arrayList.add(ItemColor(color =   Color.DKGRAY))
-        arrayList.add(ItemColor(color =   Color.RED))
+        arrayList.add(ItemColor(color = Color.BLUE))
+        arrayList.add(ItemColor(color = Color.DKGRAY))
+        arrayList.add(ItemColor(color = Color.RED))
 
-        arrayList.add(ItemColor(color =  Color.LTGRAY))
-        arrayList.add(ItemColor(color =   Color.parseColor("#00574B")))
-        arrayList.add(ItemColor(color =   Color.parseColor("#FFFFBB33")))
+        arrayList.add(ItemColor(color = Color.LTGRAY))
+        arrayList.add(ItemColor(color = Color.parseColor("#00574B")))
+        arrayList.add(ItemColor(color = Color.parseColor("#FFFFBB33")))
 
 
         return arrayList
     }
 
-     fun changeColor() {
+    fun changeColor() {
 
-        mainColor = Random().nextInt(12 )
+        mainColor = Random().nextInt(12)
         var color: Int = itemColor[mainColor].color
         txt_color.setBackgroundColor(color)
 
@@ -118,14 +120,13 @@ class MainActivity : AppCompatActivity() {
 
         mainAdapter?.setConfig(colorUsed, mainColor)
 
-         //TODO..Refrescar el componento recyclerView
-         mainAdapter?.notifyDataSetChanged()
-
+        //TODO..Refrescar el componento recyclerView.
+        mainAdapter?.notifyDataSetChanged()
 
 
     }
 
-    fun alertDialogo(){
+    fun alertDialogo() {
 
         val builder = AlertDialog.Builder(this@MainActivity)
 
@@ -133,23 +134,26 @@ class MainActivity : AppCompatActivity() {
         builder.setTitle("Tu partida a Terminado")
 
         // Display a message on alert dialog
-        builder.setMessage("Este fue Tu resultado.."
-                +"Acertadas:" +success++
-                + "Errores:"  +errores++
-
-                + "¿Deseas seguir jugando?")
+        builder.setMessage(
+            "Este fue Tu resultado:" + " "
+                    + "Acertadas:" + " " + success++
+                    + " " + "Errores:" + " " + errores++
+                    + " "
+                    + "¿Deseas seguir jugando?"
+        )
 
 
         // Set a positive button and its click listener on alert dialog
-        builder.setPositiveButton("YES"){dialog, which ->
+        builder.setPositiveButton("YES") { dialog, which ->
             // Do something when user press the positive button
-            Toast.makeText(applicationContext,"Ok,Buena suerte.",Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(applicationContext, "Ok,Buena suerte.", Toast.LENGTH_SHORT).show()
+            reset()
+            validateClick = false
         }
 
         // Display a negative button on alert dialog
-        builder.setNegativeButton("No"){dialog,which ->
-            Toast.makeText(applicationContext,"Hasta pronto.",Toast.LENGTH_SHORT).show()
+        builder.setNegativeButton("No") { dialog, which ->
+            Toast.makeText(applicationContext, "Hasta pronto.", Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -162,4 +166,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun reset() {
+
+        if (success >= 0 || errores >= 0) {
+            txt_error.setText("")
+            txt_acertada.setText("")
+            success = 0
+            errores = 0
+
+        }
+    }
 }
