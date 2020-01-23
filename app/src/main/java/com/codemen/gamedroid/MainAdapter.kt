@@ -59,13 +59,15 @@ class MainAdapter( private val context: Context, var arrayList: ArrayList<ItemCo
         holder.colors.setOnClickListener {
 
             if (mainColor === positionRm) {
-                Toast.makeText(context, "Buen trabajo!!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Buen trabajo!!", Toast.LENGTH_SHORT).show()
 
-             //   mainActivity.txt_acertada.setText(mainActivity.Acertado ++)
+
             } else {
-                Toast.makeText(context, " ohh intenta otro vez..", Toast.LENGTH_LONG).show()
-                this.mainActivity.Error ++
+
+                Toast.makeText(context, " ohh intenta otro vez..", Toast.LENGTH_SHORT).show()
+                //this.mainActivity.errores.inc()
                // this.mainActivity.txt_error.setText(mainActivity.Error)
+
             }
 
             mainActivity.changeColor()

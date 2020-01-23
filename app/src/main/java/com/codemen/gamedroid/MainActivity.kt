@@ -3,6 +3,7 @@ package com.codemen.gamedroid
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,8 +23,8 @@ class MainActivity : AppCompatActivity() {
     private var mainAdapter: MainAdapter? = null
     private var colorUsed : ArrayList<Int> = ArrayList()
     private var mainColor : Int = 0
-     var Error : Int = 0
-     var Acertado : Int = 0
+     var errores : TextView? = findViewById<TextView>(R.id.txt_error)
+     var success : TextView? = findViewById<TextView>(R.id.txt_acertada)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,7 +106,8 @@ class MainActivity : AppCompatActivity() {
         mainAdapter?.setConfig(colorUsed, mainColor)
 
          //TODO..Refrescar el componento recyclerView
-         recyclerView?.refreshDrawableState()
+         mainAdapter?.notifyDataSetChanged()
+
 
 
     }

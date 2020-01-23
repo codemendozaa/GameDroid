@@ -13,6 +13,7 @@
         <item>@color/darkorange</item>
         <item>@color/darkred</item>
         <item>@color/chartreuse</item>
+        <item>@color/pink</item>
 
 
     </string-array>
