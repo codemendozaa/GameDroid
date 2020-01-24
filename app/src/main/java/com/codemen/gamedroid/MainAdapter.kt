@@ -71,7 +71,7 @@ class MainAdapter(
 
                     Toast.makeText(context,"Buen trabajo!!" + mainActivity.success,Toast.LENGTH_SHORT).show()
                     mainActivity.success++
-                    mainActivity.txt_acertada.setText("Correctas:" + mainActivity.success)
+                    mainActivity.txt_acertada.setText("Buenas:" + mainActivity.success)
 
                 } else {
 
