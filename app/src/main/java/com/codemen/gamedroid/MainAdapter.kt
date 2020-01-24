@@ -69,12 +69,7 @@ class MainAdapter(
 
                 if (mainColor == positionRm) {
 
-                    Toast.makeText(
-                        context,
-                        "Buen trabajo!!" + mainActivity.success,
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    Toast.makeText(context,"Buen trabajo!!" + mainActivity.success,Toast.LENGTH_SHORT).show()
                     mainActivity.success++
                     mainActivity.txt_acertada.setText("Correctas:" + mainActivity.success)
 

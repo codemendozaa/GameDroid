@@ -74,7 +74,6 @@ class MainActivity : AppCompatActivity() {
             override fun onFinish() {
                 fab_start.isClickable = true
                 txt_contador.setText("")
-                reset()
                 alertDialogo()
                 validateClick = false
 
