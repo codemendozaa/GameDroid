@@ -2,11 +2,15 @@ package com.codemen.gamedroid
 
 
 import android.content.Context
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -49,6 +53,7 @@ class MainAdapter(
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
 
 
@@ -75,6 +80,12 @@ class MainAdapter(
 
                 } else {
 
+
+                    val vibe:Vibrator = mainActivity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    var effect:VibrationEffect = VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE);
+
+
+                    vibe.vibrate(effect)
                     Toast.makeText(context, " ohh intenta otro vez..", Toast.LENGTH_SHORT).show()
                     mainActivity.errores++
                     mainActivity.txt_error.setText("Error:" + mainActivity.errores)
