@@ -1,7 +1,9 @@
 package com.codemen.gamedroid
 
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -20,6 +22,7 @@ class MainAdapter(
     private val context: Context,
     var arrayList: ArrayList<ItemColor>,
     var mainActivity: MainActivity
+
 ) :
     RecyclerView.Adapter<MainAdapter.ItemHolder>() {
 
@@ -60,9 +63,6 @@ class MainAdapter(
         var positionRm: Int = selectColor()
         var color: Int = arrayList[positionRm].color
         colorUsed.add(positionRm)
-        if (colorUsed.size === 10) {
-            holder.colors.setBackgroundColor(color)
-        }
 
         holder.colors.setBackgroundColor(color)
 
@@ -74,6 +74,8 @@ class MainAdapter(
 
                 if (mainColor == positionRm) {
 
+                    val mp = MediaPlayer.create(mainActivity, R.raw.beep_05)
+                    mp.start()
                     Toast.makeText(context,"Buen trabajo!!" + mainActivity.success,Toast.LENGTH_SHORT).show()
                     mainActivity.success++
                     mainActivity.txt_acertada.setText("Buenas:" + mainActivity.success)

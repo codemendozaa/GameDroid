@@ -156,11 +156,8 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-
-        // Finally, make the alert dialog using builder
         val dialog: AlertDialog = builder.create()
 
-        // Display the alert dialog on app interface
         dialog.show()
 
     }
